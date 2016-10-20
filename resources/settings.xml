@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
 	<category label="PiGDrive">
-		<setting id="cloudpath" type="bool" label="Cloud Path to sync" default="true"/>
-		<setting id="localpath" type="bool" label="Local Path to sync" default="true"/>
+		<setting id="cloudpath" type="folder" label="Cloud Path to sync" source="auto" option="writeable"/>
+		<setting id="localpath" type="folder" label="Local Path to sync"/>
+		<!-- <setting label="32033" type="text" id="username" /> -->
 		<setting type="sep"/>
 		<setting id="torrentcatcher" type="bool" label="Copy torrent files to transmission folder" default="false"/>
-		<setting id="torrentpath" type="bool" label="Path to you transmission watchfolder" default="true"/>
+		<setting id="torrentpath" type="folder" label="Path to you transmission watchfolder"/>
 		<setting type="sep"/>
 		<setting label="execute command" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/script.py, SetLocation)"/>
 	</category>
