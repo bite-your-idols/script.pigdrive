@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.hacklib" name="PiGDrive" version="0.0.1" provider-name="Bite Your Idols!">
+    <requires>
+		<import addon="xbmc.python" version="2.14.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="es">Google Drive for Pi.</summary>
+		<summary lang="en">Google Drive for Pi.</summary>
+		<description lang="en">Google Drive for Pi.</description>
+		<description lang="es">Google Drive for Pi.</description>
+		<license>GNU General Public License, v2</license>
+		<language></language>
+		<forum></forum>
+		<source></source>
+		<email></email>
+	</extension>
+</addon>
