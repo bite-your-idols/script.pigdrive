@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-	<category label="PiGDrive">
-		<setting id="cloudpath" type="folder" label="Cloud Path to sync" source="auto" option="writeable"/>
-		<setting id="localpath" type="folder" label="Local Path to sync"/>
-		<!-- <setting label="32033" type="text" id="username" /> -->
+	<category label="GDrive Setup">
+		<setting label="Drive installation" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/setup.py, SetLocation)"/>
+		<setting label="Install Autostart" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/autostart.py, SetLocation)"/>
+		<setting id="autostart" type="bool" label="Auto-sync at Kodi's start (Autostart installation needed)" default="false"/>
 		<setting type="sep"/>
-		<setting id="torrentcatcher" type="bool" label="Copy torrent files to transmission folder" default="false"/>
-		<setting id="torrentpath" type="folder" label="Path to you transmission watchfolder"/>
+		<setting id="cloudpath" type="text" label="Write your cloud path to sync" />
+		<setting id="localpath" type="folder" label="Select your local folder to sync" source="auto" option="writeable"/>
 		<setting type="sep"/>
-		<setting label="execute command" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/script.py, SetLocation)"/>
+		<setting label="Upload now - push to drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/upload.py, SetLocation)"/>
+		<setting label="Download now - pull from drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/download.py, SetLocation)"/>
+	</category>
+	<category label="Transmission">
+		<setting id="torrentpath" type="folder" label="Select path to you transmission watchfolder"/>
+		<setting id="torrentcatcher" type="bool" label="Auto copy torrent files to watchfolder (Only works with autostart enabled)" default="false"/>
+		<setting type="sep"/>
+		<setting label="Grab now torrent files and move them to watchfolder" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/torrents.py, SetLocation)"/>
 	</category>
 </settings>
