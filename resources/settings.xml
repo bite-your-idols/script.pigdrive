@@ -2,7 +2,6 @@
 <settings>
 	<category label="GDrive Setup">
 		<setting label="Drive installation" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/setup.py, SetLocation)"/>
-		<setting label="Install Autostart" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/autostart.py, SetLocation)"/>
 		<setting id="autostart" type="bool" label="Auto-sync at Kodi's start (Autostart installation needed)" default="false"/>
 		<setting type="sep"/>
 		<setting id="cloudpath" type="text" label="Write your cloud path to sync" />
