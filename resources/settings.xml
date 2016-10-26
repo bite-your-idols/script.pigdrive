@@ -9,11 +9,10 @@
 		<setting type="sep"/>
 		<setting label="Upload now - push to drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/upload.py, SetLocation)"/>
 		<setting label="Download now - pull from drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/download.py, SetLocation)"/>
+		<setting label="Sync now" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/sync.py, SetLocation)"/>
 	</category>
 	<category label="Transmission">
 		<setting id="torrentpath" type="folder" label="Select path to you transmission watchfolder"/>
-		<setting id="torrentcatcher" type="bool" label="Auto copy torrent files to watchfolder (Only works with autostart enabled)" default="false"/>
-		<setting type="sep"/>
-		<setting label="Grab now torrent files and move them to watchfolder" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/torrents.py, SetLocation)"/>
+		<setting id="torrentcatcher" type="bool" label="Auto copy torrent files to watchfolder" default="false"/>
 	</category>
 </settings>
