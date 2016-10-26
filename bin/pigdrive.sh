@@ -17,6 +17,7 @@ AUTOSTART=$(echo $USER_SETTINGS | sed -e 's~.*id="autostart" value="\(.*\)" /> <
 CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="cloudpath" value="\(.*\)" /> <setting id="localpath.*~\1~')
 LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="localpath" value="\(.*\)" /> <setting id="torrentcatcher.*~\1~')
 TORRENT_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentcatcher" value="\(.*\)" /> <setting id="torrentpath.*~\1~')
+# si es false la anterior esto deberia quedarse vacio, porque al ser false no se metido en el user settings
 TORRENT_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentpath" value="\(.*\)/" /> </settings>.*~\1~')
 
 echo "Action -> "$ACTION >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
@@ -40,11 +41,12 @@ case $ACTION in
 		#click "allow"
 		#copy given code and paste in console
 
-		#meter el auto start en el arranque de kodi
-		echo '(	sh /storage/.kodi/addons/script.pigdrive/bin/pigdrive.sh sync ) &' >> /storage/.config/autostart.sh
+		#meter el auto start en el arranque de kodi -> probar esto, si es necesario esperar a kodi o no
+		# echo '(	sh /storage/.kodi/addons/script.pigdrive/bin/pigdrive.sh) &' >> /storage/.config/autostart.sh
+		echo 'sh /storage/.kodi/addons/script.pigdrive/bin/pigdrive.sh' >> /storage/.config/autostart.sh
 
-		echo $DRIVE quota
-		echo $DRIVE quota >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
+		$DRIVE_FILE quota
+		$DRIVE_FILE quota >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
 	;;
 
 	"upload")  
@@ -91,16 +93,16 @@ esac
 
 echo "Finished" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
 
-# COSITAS
+# EJEMPLOS
 
 # comparar la diferencia entre archivos/carpetas
-# $DRIVE diff "$FOLDER"
+# $echo $DRIVE_FILE quota diff "$FOLDER"
 
 # lkstar archivos en un directorio de la nube
-# $DRIVE list "$FOLDER"
+# $echo $DRIVE_FILE quota list "$FOLDER"
 
 # information about your drive, such as the account type, bytes used/free, and the total amount of storage available.
-# $DRIVE quota
+# $echo $DRIVE_FILE quota quota
 
 # bajar de la nube una carpeta
 # $DRIVE_FILE pull --no-clobber --exclude-ops delete -quiet "$CLOUD_FOLDER"
