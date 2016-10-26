@@ -43,7 +43,7 @@ case $ACTION in
 
 		#meter el auto start en el arranque de kodi -> probar esto, si es necesario esperar a kodi o no
 		# echo '(	sh /storage/.kodi/addons/script.pigdrive/bin/pigdrive.sh) &' >> /storage/.config/autostart.sh
-		echo 'sh /storage/.kodi/addons/script.pigdrive/bin/pigdrive.sh' >> /storage/.config/autostart.sh
+		echo '( sleep 1m && sh /storage/.kodi/addons/script.pigdrive/bin/pigdrive.sh ) &' >> /storage/.config/autostart.sh
 
 		$DRIVE_FILE quota
 		$DRIVE_FILE quota >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
