@@ -50,14 +50,14 @@ case $ACTION in
 	"upload")  
     	# forzamos el push desde settings 
     	echo "Upload" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
-    	$DRIVE_FILE push --no-clobber --exclude-ops delete -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
+    	$DRIVE_FILE push -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
     	kodi-send --action=Notification"(PiGDrive,Local pushed to Drive,2000,/storage/.kodi/addons/script.gamestarter/icon.png)"
 	;;
 
 	"download")  
     	# forzamos el pull desde settings 
     	echo "Download" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
-    	$DRIVE_FILE pull --no-clobber --exclude-ops delete -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
+    	$DRIVE_FILE pull -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
     	kodi-send --action=Notification"(PiGDrive,Drive pulled to local,2000,/storage/.kodi/addons/script.gamestarter/icon.png)"
 	;;
 
@@ -66,11 +66,11 @@ case $ACTION in
 	# ;;
 
 	*)  
-		if [ $AUTOSTART == 'true' ] || [ $ACTION == "torrents" ]; then
+		if [ $AUTOSTART == 'true' ] || [ $ACTION == "sync" ]; then
 			# lo que se ejecuta por defecto al arrancar kodi o al activar torrent
 			echo "Sync" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
 			
-			$DRIVE_FILE pull -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
+			$DRIVE_FILE pull -files --no-clobber --exclude-ops delete -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/userdata/addon_data/script.pigdrive/pigdrive.log
 
 			# checkeamos que tiene marcado torrentcatcher en true
 			if [ $TORRENT_CATCHER == 'true' ]; then
