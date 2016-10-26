@@ -8,3 +8,6 @@ Google Drive as a kodi addon for Raspberry Pi using https://github.com/odeke-em/
 
 > sh /storage/.kodi/addons/script.pigdrive/bin/pigdrive.sh setup
 
+- An activation url will prompt, you need to copy it and paste into your PC browser. Then click allow and copy the key code that will appear in the browser. Finally you just paste that key code into console and press enter.
+
+- If everything went ok, you will get a resume of your cloud data. You can now close the console and go back to Kodi.
