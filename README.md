@@ -4,6 +4,7 @@ Google Drive as a kodi addon for Raspberry Pi using https://github.com/odeke-em/
 ## Installation:
 - Download addon from [releases page](https://github.com/bite-your-idols/script.pigdrive/releases), copy to your Raspberry Pi 2/3 running Kodi. Go to addons and install from zip.
 
-- Go to addon settings and select "Drive installation". You need to complete this first step using ssh in order to allow Gdrive to access your account.
+- Go to addon settings, write path to Drive folder you want to sync (root by default), the folder you want to sync in your pi and then select "Drive installation". You will need to complete this installation step using ssh in order to allow Gdrive to access your account. You must exec this command: 
 
+> sh /storage/.kodi/addons/script.pigdrive/bin/pigdrive.sh setup
 
