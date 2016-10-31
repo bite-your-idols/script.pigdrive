@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
 	<category label="GDrive Setup">
-		<setting label="Drive installation" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/setup.py, SetLocation)"/>
+		<setting label="Drive installation" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/resources/bin/setup.py, SetLocation)"/>
 		<setting id="autostart" type="bool" label="Auto-sync at Kodi's start" default="false"/>
 		<setting type="sep"/>
 		<setting id="cloudpath" type="text" label="Write your cloud path to sync" />
 		<setting id="localpath" type="folder" label="Select your local folder to sync" source="auto" option="writeable"/>
 		<setting type="sep"/>
-		<setting label="Upload now - push to drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/upload.py, SetLocation)"/>
-		<setting label="Download now - pull from drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/download.py, SetLocation)"/>
-		<setting label="Sync now" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/bin/sync.py, SetLocation)"/>
+		<setting label="Upload now - push to drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/resources/bin/upload.py, SetLocation)"/>
+		<setting label="Download now - pull from drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/resources/bin/download.py, SetLocation)"/>
+		<setting label="Sync now" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/resources/bin/sync.py, SetLocation)"/>
 	</category>
 	<category label="Transmission">
 		<setting id="torrentpath" type="folder" label="Select path to you transmission watchfolder"/>
