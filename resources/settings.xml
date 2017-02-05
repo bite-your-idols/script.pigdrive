@@ -14,6 +14,7 @@
 	<category label="Transmission">
 		<setting id="torrentpath" type="folder" label="Select path to you transmission watchfolder"/>
 		<setting id="torrentcatcher" type="bool" label="Auto copy torrent files to watchfolder" default="false"/>
+		<setting label="Move torrents now" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/resources/bin/torrents.py, SetLocation)"/>
 	</category>
 	<category label="Google Photos">
 		<setting id="photoscloudpath" type="text" label="Write your cloud Google Potos path" />
