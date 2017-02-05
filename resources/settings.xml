@@ -11,6 +11,12 @@
 		<setting label="Download now - pull from drive" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/resources/bin/download.py, SetLocation)"/>
 		<setting label="Sync now" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/resources/bin/sync.py, SetLocation)"/>
 	</category>
+	<category label="Google Photos">
+		<setting id="photoscloudpath" type="text" label="Write your cloud Google Potos path" />
+		<setting id="photoslocalpath" type="folder" label="Select your local folder to backup photos"/>
+		<setting id="photosbackup" type="bool" label="Auto download/backup you Google Photos" default="false"/>
+		<setting label="Download now" type="action" action="RunScript(/storage/.kodi/addons/script.pigdrive/resources/bin/photos.py, SetLocation)"/>
+	</category>
 	<category label="Transmission">
 		<setting id="torrentpath" type="folder" label="Select path to you transmission watchfolder"/>
 		<setting id="torrentcatcher" type="bool" label="Auto copy torrent files to watchfolder" default="false"/>
