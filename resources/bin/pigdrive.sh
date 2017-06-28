@@ -74,7 +74,7 @@ function getPhotos {
 	    ln -s "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" 
 	fi
 
-	$echo $DRIVE_FILE pull --no-clobber --exclude-ops delete -quiet -depth -1 "$PHOTOS_CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
+	$echo $DRIVE_FILE pull --no-clobber --exclude-ops delete -quiet -depth -1 -ignore-name-clashes "$PHOTOS_CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
 
 }
 
@@ -150,7 +150,7 @@ case $ACTION in
 			fi 
 
 			#subimos a drive lo que queda aqui, 
-			# $DRIVE_FILE push -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
+			$DRIVE_FILE push -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
 
 		fi
   	;;
