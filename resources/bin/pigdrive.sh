@@ -74,7 +74,7 @@ function getPhotos {
 	    ln -s "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" 
 	fi
 
-	$echo $DRIVE_FILE pull --no-clobber --exclude-ops delete -quiet -depth -1 -ignore-name-clashes "$PHOTOS_CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
+	$echo $DRIVE_FILE pull --no-clobber --exclude-ops delete -depth -1 -ignore-name-clashes "$PHOTOS_CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
 
 }
 
