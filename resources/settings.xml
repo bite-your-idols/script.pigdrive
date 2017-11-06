@@ -7,19 +7,19 @@
 		<setting id="cloudpath" type="text" label="Write your cloud path to sync" />
 		<setting id="localpath" type="folder" label="Select your local folder to sync" source="auto" option="writeable"/>
 		<setting type="sep"/>
-		<setting label="Upload now - push to drive" type="action" action="RunPlugin(plugin://script.pigdrive/?com=UPLOAD)"/>
-		<setting label="Download now - pull from drive" type="action" action="RunPlugin(plugin://script.pigdrive/?com=DOWNLOAD)"/>
-		<setting label="Sync now" type="action" action="RunPlugin(plugin://script.pigdrive/?com=SYNC)"/>
+		<setting label="Upload now - push to drive" type="action" option="close" action="RunPlugin(plugin://script.pigdrive/?com=UPLOAD)"/>
+		<setting label="Download now - pull from drive" type="action" option="close" action="RunPlugin(plugin://script.pigdrive/?com=DOWNLOAD)"/>
+		<setting label="Sync now" type="action" option="close" action="RunPlugin(plugin://script.pigdrive/?com=SYNC)"/>
 	</category>
 	<category label="Transmission">
 		<setting id="torrentpath" type="folder" label="Select path to your Transmission watchfolder"/>
 		<setting id="torrentcatcher" type="bool" label="Auto copy torrent files to watchfolder" default="false"/>
-		<setting label="Move torrents now" type="action" action="RunPlugin(plugin://script.pigdrive/?com=TORRENTS)"/>
+		<setting label="Move torrents now" type="action" option="close" action="RunPlugin(plugin://script.pigdrive/?com=TORRENTS)"/>
 	</category>
 	<category label="Google Photos">
 		<setting id="photoscloudpath" type="text" label="Write your Google Photos path in your Google Drive" />
 		<setting id="photoslocalpath" type="folder" label="Select your local folder to backup photos (GPhotos folder will be created)"/>
 		<setting id="photosbackup" type="bool" label="Auto download/backup your Google Photos" default="false"/>
-		<setting label="Download now" type="action" action="RunPlugin(plugin://script.pigdrive/?com=PHOTOS)"/>
+		<setting label="Download now" type="action" option="close" action="RunPlugin(plugin://script.pigdrive/?com=PHOTOS)"/>
 	</category>
 </settings>
