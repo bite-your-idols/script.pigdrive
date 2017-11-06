@@ -12,14 +12,14 @@
 		<setting label="Sync now" type="action" action="RunPlugin(plugin://script.pigdrive/?com=SYNC)"/>
 	</category>
 	<category label="Transmission">
-		<setting id="torrentpath" type="folder" label="Select path to you transmission watchfolder"/>
+		<setting id="torrentpath" type="folder" label="Select path to your Transmission watchfolder"/>
 		<setting id="torrentcatcher" type="bool" label="Auto copy torrent files to watchfolder" default="false"/>
 		<setting label="Move torrents now" type="action" action="RunPlugin(plugin://script.pigdrive/?com=TORRENTS)"/>
 	</category>
 	<category label="Google Photos">
-		<setting id="photoscloudpath" type="text" label="Write your cloud Google Potos path" />
-		<setting id="photoslocalpath" type="folder" label="Select your local folder to backup photos"/>
-		<setting id="photosbackup" type="bool" label="Auto download/backup you Google Photos" default="false"/>
+		<setting id="photoscloudpath" type="text" label="Write your Google Photos path in your Google Drive" />
+		<setting id="photoslocalpath" type="folder" label="Select your local folder to backup photos (GPhotos folder will be created)"/>
+		<setting id="photosbackup" type="bool" label="Auto download/backup your Google Photos" default="false"/>
 		<setting label="Download now" type="action" action="RunPlugin(plugin://script.pigdrive/?com=PHOTOS)"/>
 	</category>
 </settings>
