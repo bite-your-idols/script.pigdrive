@@ -17,6 +17,8 @@ USER_SETTINGS=$(cat $SETTINGS_FILE)
 #    <setting id="torrentpath" value="/var/media/MEDIA_3T/Watchlist/- INCOMING/" />
 # </settings>	
 
+#xbmcplugin.getSetting(handle, autostart)
+
 #al loro con el orden alfabetico de las settings si metemos alguna nueva
 AUTOSTART=$(echo $USER_SETTINGS | sed -e 's~.*id="autostart" value="\(.*\)" /> <setting id="cloudpath.*~\1~')
 CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="cloudpath" value="\(.*\)" /> <setting id="localpath.*~\1~')
@@ -49,31 +51,19 @@ function getTorrents {
 }
 
 function getPhotos {
-	# opcion 1 -> bajamos todo y lo pasamos a la carpeta
- 	# echo "las acciones del backup de gPhotos"
- 	# $DRIVE_FILE pull --no-clobber --exclude-ops delete -quiet -depth -1 "$PHOTOS_CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
- 	# $echo $DRIVE_FILE pull --no-clobber --exclude-ops delete  -depth -1 "$PHOTOS_CLOUD_FOLDER"
-	# despues de bajar la carpeta fotos la movemos al directio local deseado
-	# mkdir "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER"
-	# cp -rf "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER"/* "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER"
-	# rm -rf "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER"
-
-	# opcion 2 -> comprobar las fotos que no estan y bajarlas
-	# ls -R "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER"
+	# opcion alternativa -> comprobar las fotos que no estan y bajarlas
 	# $echo $DRIVE_FILE list --no-prompt -depth -1 "$PHOTOS_CLOUD_FOLDER"
+
+	# no se si este mkdir esta bien...
 	mkdir "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER"
 
-	# if [[ -L "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER"  && -d "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER"  ]]
-	# then
-	#     echo "symlink exists"
-	# else
-	# 	ln -s "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" 
-	# fi
-
+	# hay que arreglar esto, necesitamos hacer bien el symlink, no crea las carpetas intermedias...
 	if [ ! -L "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" ]; then
+	    # ln -s "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" 
 	    ln -s "$PHOTOS_LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" "$LOCAL_FOLDER$PHOTOS_CLOUD_FOLDER" 
 	fi
 
+	# $echo $DRIVE_FILE pull --no-clobber --exclude-ops delete -quiet -depth -1 "$PHOTOS_CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
 	$echo $DRIVE_FILE pull --no-clobber --exclude-ops delete -depth -1 -ignore-name-clashes "$PHOTOS_CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
 
 }
@@ -150,7 +140,7 @@ case $ACTION in
 			fi 
 
 			#subimos a drive lo que queda aqui, 
-			$DRIVE_FILE push -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
+			# $DRIVE_FILE push -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
 
 		fi
   	;;
