@@ -40,6 +40,29 @@ else:
 # xbmcgui.Dialog().ok("PiGDrive",  command)
 # command = "FOOO"
 
+
+# GET SETTINGS 
+# addon       = xbmcaddon.Addon()
+# addonname   = addon.getAddonInfo('name')
+# addonid 	= addon.getAddonInfo('id')
+# script_file = os.path.realpath(__file__)
+# directory = os.path.dirname(script_file)
+
+# cloudPath = xbmcaddon.Addon(id='script.pigdrive').getSetting('cloudpath')
+# torrentPath = xbmcaddon.Addon(id='script.pigdrive').getSetting('torrentpath')
+# localPath = xbmcaddon.Addon(id='script.pigdrive').getSetting('localpath')
+# torrentCatcher = xbmcaddon.Addon(id='script.pigdrive').getSetting('torrentCatcher')
+
+#xbmcaddon.Addon(id='script.pigdrive').openSettings()
+
+# import xbmcaddon
+# import xbmcgui
+
+# variable= xbmcaddon.Addon(id='script.pigdrive').getSetting('autostart')
+#xbmcgui.Dialog().ok("TEST", variable)
+
+
+
 if command == 'SETUP':
 	xbmcgui.Dialog().ok("PiGDrive", "To install Google Drive you need to connect to your RPi using ssh, exec this command and follow the instructions: 'sh /storage/.kodi/addons/script.pigdrive/resources/bin/pigdrive.sh setup'")
 
