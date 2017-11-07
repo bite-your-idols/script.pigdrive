@@ -18,13 +18,27 @@ import urlparse
 # localPath = xbmcplugin.getSetting(int(sys.argv[1]),'localpath')
 # torrentCatcher = xbmcplugin.getSetting(int(sys.argv[1]),'torrentCatcher')
 
-# xbmcgui.Dialog().ok("PiGDrive", "FOO")
+count = len(sys.argv) - 1
+ 
+if count > 0:
+	# xbmcgui.Dialog().ok("Status",sys.argv[0] +" called with " + str(count)+" args", "["+", ".join(sys.argv[1:])+"]")
+	command = ""+", ".join(sys.argv[1:])+""
+	# xbmcgui.Dialog().ok("PiGDrive",  "["+", ".join(sys.argv[1:])+"]")
+	
+else:
+	# xbmcgui.Dialog().ok("Status","no arguments specified")
+	command = "FOOO"
+
+
+# xbmcgui.Dialog().ok("PiGDrive", "GO")
 # miramos si hay alguna accion
-args = urlparse.parse_qs(sys.argv[2][1:])
-# args = "?com=FOO"
-# xbmcgui.Dialog().ok("PiGDrive", args)
-command = args['com'][0] if 'com' in args else 'EXEC_ADDON'
-# xbmcgui.Dialog().ok("PiGDrive", command)
+# args = urlparse.parse_qs(sys.argv[2][1:])
+# args = .join(sys.argv[1:])
+# args = sys.argv[1:]
+# xbmcgui.Dialog().ok("PiGDrive", .join(sys.argv[1:]))
+# command = args['com'][0] if 'com' in args else 'EXEC_ADDON'
+# xbmcgui.Dialog().ok("PiGDrive",  command)
+# command = "FOOO"
 
 if command == 'SETUP':
 	xbmcgui.Dialog().ok("PiGDrive", "To install Google Drive you need to connect to your RPi using ssh, exec this command and follow the instructions: 'sh /storage/.kodi/addons/script.pigdrive/resources/bin/pigdrive.sh setup'")
@@ -35,7 +49,7 @@ elif command == 'UPLOAD':
 
 elif command == 'DOWNLOAD':
 	xbmcgui.Dialog().ok("PiGDrive", "Do you want to download your cloud local data to local storage? All files in local storage not present in cloud will be deleted.")
-	os.system("sh /storage/.kodi/addons/script.pigdrive/resources/bin/pigdrive.sh upload")
+	os.system("sh /storage/.kodi/addons/script.pigdrive/resources/bin/pigdrive.sh download")
  
 elif command == 'SYNC':
 	xbmcgui.Dialog().ok("PiGDrive", "This will download your cloud files, execute active actions and then, upload the local folder to the cloud.")
