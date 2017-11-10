@@ -70,6 +70,7 @@ function getPhotos {
 
 #entramos en la carpeta donde tenemos el drive
 cd $LOCAL_FOLDER
+chmod a+x $DRIVE_FILE
 
 case $ACTION in
 	"setup")
