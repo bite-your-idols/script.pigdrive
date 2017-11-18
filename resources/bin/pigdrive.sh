@@ -4,8 +4,69 @@ echo '::PiGDrive:: -> sync on ' $(date) &> /storage/.kodi/temp/pigdrive.log
 #defining variables
 ACTION=$1
 DRIVE_FILE="/storage/.kodi/addons/script.pigdrive/resources/bin/drive"
-SETTINGS_FILE="/storage/.kodi/userdata/addon_data/script.pigdrive/settings.xml"
+# SETTINGS_FILE="/storage/.kodi/userdata/addon_data/script.pigdrive/settings.xml"
+SETTINGS_FILE="/storage/.kodi/userdata/addon_data/script.pigdrive/settings.txt"
 USER_SETTINGS=$(cat $SETTINGS_FILE)
+
+# habria que ejecutar este script y depues abrir el archivo /storage/.kodi/addons/script.pigdrive/settings.txt para ceger las settings
+kodi-send --action="RunScript(script.pigdrive, SETTINGS)"
+
+sleep 1
+
+NUM=1
+# declare -a Settings="()"
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    # echo "$line"
+    if [ $NUM == 1 ]; then
+    	# Settings[$NUM]='"$line"'
+    	# Settings=(${Settings[@]} $line)
+    	AUTOSTART="$line"
+    elif [ $NUM == 2 ]; then
+    	CLOUD_FOLDER="$line"
+    elif [ $NUM == 3 ]; then
+    	LOCAL_FOLDER="$line"
+    elif [ $NUM == 4 ]; then
+    	TORRENT_FOLDER="$line"
+    elif [ $NUM == 5 ]; then
+    	TORRENT_CATCHER="$line"
+    elif [ $NUM == 6 ]; then
+    	PHOTOS_CLOUD_FOLDER="$line"
+    elif [ $NUM == 7 ]; then
+    	PHOTOS_LOCAL_FOLDER="$line"
+    elif [ $NUM == 8 ]; then
+    	PHOTOS_CATCHER="$line"
+    fi
+    # echo $NUM
+    let "NUM++"
+done < "$SETTINGS_FILE"
+
+rm "$SETTINGS_FILE"
+
+#tendria que hacer un array con cada linea y luego asignarselo a cada variable de bash.
+
+# EJEMPLO DE SWTTINGS BYPASEADO A TXT
+# autostart:'true'
+# cloudPath:''
+# localPath:'/storage/downloads/'
+# torrentPath:'/var/media/HDD_2T/Watchlist/- INCOMING/'
+# torrentCatcher:'true'
+# photoscloudpath:'Google Fotos'
+# photoslocalpath:'/var/media/HDD_2T/Fotos/'
+# photosbackup:'true'
+
+# AUTOSTART=${Settings[0]}
+# CLOUD_FOLDER=${Settings[1]}
+# LOCAL_FOLDER=${Settings[2]}
+# TORRENT_FOLDER=${Settings[3]}
+# TORRENT_CATCHER=${Settings[4]}
+# PHOTOS_CLOUD_FOLDER=${Settings[5]}
+# PHOTOS_LOCAL_FOLDER=${Settings[6]}
+# PHOTOS_CATCHER=${Settings[7]}
+
+
+##########################################################
+
+## EJEMPLOS DE SETTINGS EN V1 y V2
 # <settings>
 #    <setting id="autostart" value="true" />
 #    <setting id="cloudpath" value="" />
@@ -17,30 +78,77 @@ USER_SETTINGS=$(cat $SETTINGS_FILE)
 #    <setting id="torrentpath" value="/var/media/MEDIA_3T/Watchlist/- INCOMING/" />
 # </settings>	
 
+# LE9/ KODI 18
+# <settings version="2">
+#     <setting id="autostart">true</setting>
+#     <setting id="cloudpath" default="true"></setting>
+#     <setting id="localpath">/storage/downloads/</setting>
+#     <setting id="photosbackup">true</setting>
+#     <setting id="photoscloudpath">Google Fotos</setting>
+#     <setting id="photoslocalpath">/var/media/HDD_2T/Fotos/</setting>
+#     <setting id="torrentcatcher">true</setting>
+#     <setting id="torrentpath">/var/media/HDD_2T/Watchlist/- INCOMING/</setting>
+# </settings>
+
 #xbmcplugin.getSetting(handle, autostart)
 
+
+## OPCION 1 PARA SACAR LAS SETTINGS, LA V2 lo jode
+# 	AUTOSTART=$(echo $USER_SETTINGS | sed -e 's~.*id="autostart" value="\(.*\)" /> <setting id="cloudpath.*~\1~')
+# 	CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="cloudpath" value="\(.*\)" /> <setting id="localpath.*~\1~')
+# 	LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="localpath" value="\(.*\)" /> <setting id="photosbackup.*~\1~')
+# 	PHOTOS_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="photosbackup" value="\(.*\)" /> <setting id="photoscloudpath.*~\1~')
+# 	PHOTOS_CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="photoscloudpath" value="\(.*\)" /> <setting id="photoslocalpath.*~\1~')
+# 	PHOTOS_LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="photoslocalpath" value="\(.*\)" /> <setting id="torrentcatcher.*~\1~')
+# 	TORRENT_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentcatcher" value="\(.*\)" /> <setting id="torrentpath.*~\1~')
+# 	# si es false la anterior esto deberia quedarse vacio, porque al ser false no se metido en el user settings
+# 	TORRENT_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentpath" value="\(.*\)/" /> </settings>.*~\1~')
+
+
+## OPCION 2 PARA SACAR LAS SETTINGS Y QUE LA V2 NO LO JODA
+# tenemos que sacar del USER_SETTINGS la primera linea y ver si es version="2"
+# SETTINGS_VERSION=$(echo $USER_SETTINGS | sed -e 's~.*<settings\(.*\)ersion="2">.*~\1~')
+# echo $SETTINGS_VERSION >> /storage/.kodi/temp/pigdrive.log
+
 #al loro con el orden alfabetico de las settings si metemos alguna nueva
-AUTOSTART=$(echo $USER_SETTINGS | sed -e 's~.*id="autostart" value="\(.*\)" /> <setting id="cloudpath.*~\1~')
-CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="cloudpath" value="\(.*\)" /> <setting id="localpath.*~\1~')
-LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="localpath" value="\(.*\)" /> <setting id="photosbackup.*~\1~')
-PHOTOS_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="photosbackup" value="\(.*\)" /> <setting id="photoscloudpath.*~\1~')
-PHOTOS_CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="photoscloudpath" value="\(.*\)" /> <setting id="photoslocalpath.*~\1~')
-PHOTOS_LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="photoslocalpath" value="\(.*\)" /> <setting id="torrentcatcher.*~\1~')
-TORRENT_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentcatcher" value="\(.*\)" /> <setting id="torrentpath.*~\1~')
-# si es false la anterior esto deberia quedarse vacio, porque al ser false no se metido en el user settings
-TORRENT_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentpath" value="\(.*\)/" /> </settings>.*~\1~')
+# if [ $SETTINGS_VERSION == 'v' ]; then
+# 	echo "Settings V2" >> /storage/.kodi/temp/pigdrive.log
+# 	AUTOSTART=$(echo $USER_SETTINGS | sed -e 's~.*id="autostart">"\(.*\)"<setting> <setting id="cloudpath.*~\1~')
+# 	#esta tiene su miga porque si es default es true y sino mete la ruta...
+# 	CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="cloudpath" value="\(.*\)"<setting> <setting id="localpath.*~\1~')
+# 	LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="localpath">\(.*\)"<setting> <setting id="photosbackup.*~\1~')
+# 	PHOTOS_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="photosbackup">\(.*\)"<setting> <setting id="photoscloudpath.*~\1~')
+# 	PHOTOS_CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="photoscloudpath">\(.*\)<setting> <setting id="photoslocalpath.*~\1~')
+# 	PHOTOS_LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="photoslocalpath">\(.*\)<setting> <setting id="torrentcatcher.*~\1~')
+# 	TORRENT_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentcatcher">\(.*\)<setting> <setting id="torrentpath.*~\1~')
+# 	# si es false la anterior esto deberia quedarse vacio, porque al ser false no se metido en el user settings
+# 	TORRENT_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentpath">\(.*\)/<setting> <settings>.*~\1~')
+# else
+# 	echo "Settings V1" >> /storage/.kodi/temp/pigdrive.log
+# 	AUTOSTART=$(echo $USER_SETTINGS | sed -e 's~.*id="autostart" value="\(.*\)" /> <setting id="cloudpath.*~\1~')
+# 	CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="cloudpath" value="\(.*\)" /> <setting id="localpath.*~\1~')
+# 	LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="localpath" value="\(.*\)" /> <setting id="photosbackup.*~\1~')
+# 	PHOTOS_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="photosbackup" value="\(.*\)" /> <setting id="photoscloudpath.*~\1~')
+# 	PHOTOS_CLOUD_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="photoscloudpath" value="\(.*\)" /> <setting id="photoslocalpath.*~\1~')
+# 	PHOTOS_LOCAL_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="photoslocalpath" value="\(.*\)" /> <setting id="torrentcatcher.*~\1~')
+# 	TORRENT_CATCHER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentcatcher" value="\(.*\)" /> <setting id="torrentpath.*~\1~')
+# 	# si es false la anterior esto deberia quedarse vacio, porque al ser false no se metido en el user settings
+# 	TORRENT_FOLDER=$(echo $USER_SETTINGS | sed -e 's~.*id="torrentpath" value="\(.*\)/" /> </settings>.*~\1~')
+# fi 
 
+##########################################################
 
-echo "Action -> "$ACTION >> /storage/.kodi/temp/pigdrive.log
-echo "Autostart -> "$AUTOSTART >> /storage/.kodi/temp/pigdrive.log
-echo "Cloud Folder -> "$CLOUD_FOLDER >> /storage/.kodi/temp/pigdrive.log
-echo "Local Folder -> "$LOCAL_FOLDER >> /storage/.kodi/temp/pigdrive.log
-echo "Torrent Catcher -> "$TORRENT_CATCHER >> /storage/.kodi/temp/pigdrive.log
-echo "Torrent Watchfolder -> "$TORRENT_FOLDER >> /storage/.kodi/temp/pigdrive.log
-echo "Photos Cloud Folder -> "$PHOTOS_CLOUD_FOLDER >> /storage/.kodi/temp/pigdrive.log
-echo "Photos Local Folder -> "$PHOTOS_LOCAL_FOLDER >> /storage/.kodi/temp/pigdrive.log
-echo "Photos Catcher -> "$PHOTOS_CATCHER >> /storage/.kodi/temp/pigdrive.log
+echo "Action -> "$ACTION #  >> /storage/.kodi/temp/pigdrive.log
+echo "Autostart -> "$AUTOSTART #  >> /storage/.kodi/temp/pigdrive.log
+echo "Cloud Folder -> "$CLOUD_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
+echo "Local Folder -> "$LOCAL_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
+echo "Torrent Catcher -> "$TORRENT_CATCHER #  >> /storage/.kodi/temp/pigdrive.log
+echo "Torrent Watchfolder -> "$TORRENT_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
+echo "Photos Cloud Folder -> "$PHOTOS_CLOUD_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
+echo "Photos Local Folder -> "$PHOTOS_LOCAL_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
+echo "Photos Catcher -> "$PHOTOS_CATCHER #  >> /storage/.kodi/temp/pigdrive.log
 
+# exit 1
 
 function getTorrents {
 	# echo "movemos los torrents"
