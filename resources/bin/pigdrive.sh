@@ -9,14 +9,15 @@ SETTINGS_FILE="/storage/.kodi/userdata/addon_data/script.pigdrive/settings.txt"
 USER_SETTINGS=$(cat $SETTINGS_FILE)
 
 # habria que ejecutar este script y depues abrir el archivo /storage/.kodi/addons/script.pigdrive/settings.txt para ceger las settings
-kodi-send --action="RunScript(script.pigdrive, SETTINGS)"
+kodi-send --action="RunScript(script.pigdrive, SETTINGS)" >> /storage/.kodi/temp/pigdrive.log
 
 sleep 1
 
 NUM=1
+# echo "-----------------------------------" >> /storage/.kodi/temp/pigdrive.log
 # declare -a Settings="()"
 while IFS='' read -r line || [[ -n "$line" ]]; do
-    # echo "$line"
+    echo "$line" #>> /storage/.kodi/temp/pigdrive.log
     if [ $NUM == 1 ]; then
     	# Settings[$NUM]='"$line"'
     	# Settings=(${Settings[@]} $line)
@@ -39,8 +40,8 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
     # echo $NUM
     let "NUM++"
 done < "$SETTINGS_FILE"
-
 rm "$SETTINGS_FILE"
+# echo "-----------------------------------" >> /storage/.kodi/temp/pigdrive.log
 
 #tendria que hacer un array con cada linea y luego asignarselo a cada variable de bash.
 
@@ -138,15 +139,19 @@ rm "$SETTINGS_FILE"
 
 ##########################################################
 
-echo "Action -> "$ACTION #  >> /storage/.kodi/temp/pigdrive.log
-echo "Autostart -> "$AUTOSTART #  >> /storage/.kodi/temp/pigdrive.log
-echo "Cloud Folder -> "$CLOUD_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
-echo "Local Folder -> "$LOCAL_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
-echo "Torrent Catcher -> "$TORRENT_CATCHER #  >> /storage/.kodi/temp/pigdrive.log
-echo "Torrent Watchfolder -> "$TORRENT_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
-echo "Photos Cloud Folder -> "$PHOTOS_CLOUD_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
-echo "Photos Local Folder -> "$PHOTOS_LOCAL_FOLDER #  >> /storage/.kodi/temp/pigdrive.log
-echo "Photos Catcher -> "$PHOTOS_CATCHER #  >> /storage/.kodi/temp/pigdrive.log
+echo "" >> /storage/.kodi/temp/pigdrive.log
+echo "VARIABLES -----------------------" >> /storage/.kodi/temp/pigdrive.log
+echo "Action -> "$ACTION  >> /storage/.kodi/temp/pigdrive.log
+echo "Autostart -> "$AUTOSTART  >> /storage/.kodi/temp/pigdrive.log
+echo "Cloud Folder -> "$CLOUD_FOLDER  >> /storage/.kodi/temp/pigdrive.log
+echo "Local Folder -> "$LOCAL_FOLDER  >> /storage/.kodi/temp/pigdrive.log
+echo "Torrent Catcher -> "$TORRENT_CATCHER  >> /storage/.kodi/temp/pigdrive.log
+echo "Torrent Watchfolder -> "$TORRENT_FOLDER  >> /storage/.kodi/temp/pigdrive.log
+echo "Photos Cloud Folder -> "$PHOTOS_CLOUD_FOLDER  >> /storage/.kodi/temp/pigdrive.log
+echo "Photos Local Folder -> "$PHOTOS_LOCAL_FOLDER  >> /storage/.kodi/temp/pigdrive.log
+echo "Photos Catcher -> "$PHOTOS_CATCHER  >> /storage/.kodi/temp/pigdrive.log
+echo "VARIABLES END -----------------------" >> /storage/.kodi/temp/pigdrive.log
+echo "" >> /storage/.kodi/temp/pigdrive.log
 
 # exit 1
 
@@ -236,7 +241,7 @@ case $ACTION in
 			$DRIVE_FILE pull -files --no-clobber -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
 
 
-			# checkeamos que tiene marcado torrentcatcher en true
+			# checkeamos que tiene marcado torrentcatcher en true, no se porque no pilla esta variable...
 			if [ $TORRENT_CATCHER == 'true' ]; then
 				echo "Torrent" >> /storage/.kodi/temp/pigdrive.log
 				getTorrents
@@ -249,7 +254,7 @@ case $ACTION in
 			fi 
 
 			#subimos a drive lo que queda aqui, 
-			# $DRIVE_FILE push -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
+			$DRIVE_FILE push -files -quiet -depth 2 "$CLOUD_FOLDER" >> /storage/.kodi/temp/pigdrive.log
 
 		fi
   	;;
