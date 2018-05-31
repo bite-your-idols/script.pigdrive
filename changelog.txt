@@ -1,3 +1,6 @@
+v0.0.5
+- Compatible with LE9/ addon settings v2.
+
 v0.0.4
 - Improve actions & Sync
 - Drive v0.3.9(UltraLightPushes)
