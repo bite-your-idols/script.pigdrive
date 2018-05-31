@@ -61,7 +61,7 @@ elif command == 'SETTINGS':
 	cloudPath = xbmcaddon.Addon(id='script.pigdrive').getSetting('cloudpath')
 	localPath = xbmcaddon.Addon(id='script.pigdrive').getSetting('localpath')
 	torrentPath = xbmcaddon.Addon(id='script.pigdrive').getSetting('torrentpath')
-	torrentCatcher = xbmcaddon.Addon(id='script.pigdrive').getSetting('torrentCatcher')
+	torrentCatcher = xbmcaddon.Addon(id='script.pigdrive').getSetting('torrentcatcher')
 	photoscloudpath = xbmcaddon.Addon(id='script.pigdrive').getSetting('photoscloudpath')
 	photoslocalpath = xbmcaddon.Addon(id='script.pigdrive').getSetting('photoslocalpath')
 	photosbackup = xbmcaddon.Addon(id='script.pigdrive').getSetting('photosbackup')
